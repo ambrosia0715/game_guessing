@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:vibration/vibration.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -241,6 +242,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   // 버튼을 뗀 순서를 추적하기 위한 변수들
   final Map<int, int> _releaseOrder = {}; // 플레이어 인덱스 -> 뗀 순서
   int _releaseCounter = 0;
+  bool _isCountingDown = false; // 카운트다운 상태 추적
   
   // 타이머 관련 변수 제거됨
   
@@ -258,7 +260,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     super.initState();
     _playerCount = widget.playerCount;
     _playerNames = List.from(widget.playerNames);
-    _buttonPressed = List.generate(8, (index) => false);
+    _buttonPressed = List.generate(_playerCount, (index) => false);
     _initializeCountAnimation();
     _loadBannerAd();
   }
@@ -266,6 +268,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _initializeCountAnimation() {
     _countAnimationController = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.5).animate(CurvedAnimation(parent: _countAnimationController, curve: Curves.elasticOut));
+  }
+
+  // 진동 효과 함수
+  void _triggerButtonVibration() {
+    Vibration.vibrate(duration: 50); // 짧은 진동
   }
 
   void _loadBannerAd() {
@@ -301,6 +308,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _countText = '';
       _releaseOrder.clear();
       _releaseCounter = 0;
+      _isCountingDown = true; // 카운트다운 시작
     });
 
     final random = Random();
@@ -326,7 +334,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       if (i == 3) {
         await Future.delayed(const Duration(milliseconds: 300));
         // 3초 카운트 완료 후 눈치게임 시작 (자동 종료 없음)
-        setState(() => _countText = '');
+        setState(() {
+          _countText = '';
+          _isCountingDown = false; // 카운트다운 완료
+        });
         // 게임은 계속 진행되며, 누군가 버튼을 떼거나 마지막 1인이 남을 때까지
       }
     }
@@ -339,7 +350,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (_gameFinished) return;
     
     // 1. 3초 카운트 중에 떼면 즉시 게임 종료
-    if (_countText.isNotEmpty) {
+    if (_isCountingDown) {
       _endGame();
       return;
     }
@@ -387,7 +398,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void _determineWinners() {
     // 1. 3초 카운트 중에 뗀 사람들이 걸림
-    if (_countText.isNotEmpty && _releaseOrder.isNotEmpty) {
+    if (_isCountingDown && _releaseOrder.isNotEmpty) {
       List<String> earlyReleasers = [];
       _releaseOrder.forEach((playerIndex, order) {
         earlyReleasers.add(_playerNames[playerIndex]);
@@ -446,7 +457,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _gameFinished = false;
       _countText = '';
       _winners = [];
-      _buttonPressed = List.generate(8, (index) => false);
+      _buttonPressed = List.generate(_playerCount, (index) => false);
       _releaseOrder.clear();
       _releaseCounter = 0;
     });
@@ -548,10 +559,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     return Positioned(
                       left: gameAreaSize / 2 + x - buttonSize / 2,
                       top: gameAreaSize / 2 + y - buttonSize / 2,
-                      child: GestureDetector(
-                        onTapDown: (_) {
+                      child: Listener(
+                        onPointerDown: (_) {
                           if (!_gameStarted && !_gameFinished) {
                             setState(() => _buttonPressed[index] = true);
+                            _triggerButtonVibration(); // 버튼 누를 때 진동
                             
                             // 모든 참여자의 버튼이 눌려있는지 확인
                             bool allPressed = true;
@@ -566,46 +578,41 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                             }
                           }
                         },
-                        onTapUp: (_) {
+                        onPointerUp: (_) {
                           if (!_gameStarted && !_gameFinished) {
                             // 게임 시작 전에는 버튼을 떼면 다시 false가 됨
                             setState(() => _buttonPressed[index] = false);
+                            _triggerButtonVibration(); // 버튼 뗄 때 진동
                           } else if (_gameStarted && !_gameFinished) {
                             // 게임 중에는 버튼을 떼는 것이 게임의 핵심
                             // 버튼을 뗀 순서를 기록
                             if (_buttonPressed[index] && !_releaseOrder.containsKey(index)) {
                               _releaseOrder[index] = _releaseCounter++;
                               setState(() => _buttonPressed[index] = false);
+                              _triggerButtonVibration(); // 게임 중 버튼 뺄 때 진동
                               
                               // 카운트 중이거나 게임 중에 누군가 떼면 즉시 게임 종료 확인
                               _checkGameEnd();
                             }
                           }
                         },
-                        onTapCancel: () {
-                          if (!_gameStarted && !_gameFinished) {
-                            // 게임 시작 전에는 버튼을 떼면 다시 false가 됨
-                            setState(() => _buttonPressed[index] = false);
-                          } else if (_gameStarted && !_gameFinished) {
-                            // 게임 중에는 버튼을 떼는 것이 게임의 핵심
-                            // 버튼을 뺀 순서를 기록
-                            if (_buttonPressed[index] && !_releaseOrder.containsKey(index)) {
-                              _releaseOrder[index] = _releaseCounter++;
-                              setState(() => _buttonPressed[index] = false);
-                              
-                              // 카운트 중이거나 게임 중에 누군가 떼면 즉시 게임 종료 확인
-                              _checkGameEnd();
-                            }
-                          }
-                        },
-                        child: Container(
-                          width: buttonSize,
-                          height: buttonSize,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 150),
+                          width: _buttonPressed[index] ? buttonSize * 0.9 : buttonSize,
+                          height: _buttonPressed[index] ? buttonSize * 0.9 : buttonSize,
                           decoration: BoxDecoration(
-                            color: _buttonPressed[index] ? _buttonColors[index].withOpacity(0.8) : _buttonColors[index],
+                            color: _buttonPressed[index] ? _buttonColors[index].withOpacity(0.9) : _buttonColors[index],
                             shape: BoxShape.circle,
-                            boxShadow: _buttonPressed[index] ? [] : [
-                              BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 4, offset: const Offset(0, 2)),
+                            border: _buttonPressed[index] ? Border.all(color: Colors.white, width: 3) : null,
+                            boxShadow: _buttonPressed[index] ? [
+                              BoxShadow(
+                                color: _buttonColors[index].withOpacity(0.6),
+                                blurRadius: 15,
+                                spreadRadius: 5,
+                                offset: const Offset(0, 0),
+                              ),
+                            ] : [
+                              BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4)),
                             ],
                           ),
                           child: Center(
