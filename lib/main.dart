@@ -54,10 +54,8 @@ class _StartScreenState extends State<StartScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GameScreen(
-          playerCount: _playerCount,
-          playerNames: _playerNames,
-        ),
+        builder: (context) =>
+            GameScreen(playerCount: _playerCount, playerNames: _playerNames),
       ),
     );
   }
@@ -106,21 +104,42 @@ class _StartScreenState extends State<StartScreen> {
                           decoration: BoxDecoration(
                             color: Colors.orange.shade100,
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.orange.shade300, width: 3),
+                            border: Border.all(
+                              color: Colors.orange.shade300,
+                              width: 3,
+                            ),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.touch_app, size: 40, color: Colors.orange.shade700),
+                                Icon(
+                                  Icons.touch_app,
+                                  size: 40,
+                                  color: Colors.orange.shade700,
+                                ),
                                 const SizedBox(height: 4),
-                                Text('1 2 3', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
+                                Text(
+                                  '1 2 3',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade700,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const Text('눈치게임', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.purple)),
+                        const Text(
+                          '눈치게임',
+                          style: TextStyle(
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -132,7 +151,13 @@ class _StartScreenState extends State<StartScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(15),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 5, offset: const Offset(0, 2))],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 5,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Column(
                       children: [
@@ -140,29 +165,51 @@ class _StartScreenState extends State<StartScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('참여자 수: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            const Text(
+                              '참여자 수: ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             IconButton(
-                              onPressed: _playerCount > 2 ? () {
-                                setState(() {
-                                  _playerCount--;
-                                  _initializePlayers();
-                                });
-                              } : null,
+                              onPressed: _playerCount > 2
+                                  ? () {
+                                      setState(() {
+                                        _playerCount--;
+                                        _initializePlayers();
+                                      });
+                                    }
+                                  : null,
                               icon: const Icon(Icons.remove_circle),
                               iconSize: 30,
                             ),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(color: Colors.blue.shade100, borderRadius: BorderRadius.circular(10)),
-                              child: Text('$_playerCount명', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade100,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                '$_playerCount명',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                             IconButton(
-                              onPressed: _playerCount < 8 ? () {
-                                setState(() {
-                                  _playerCount++;
-                                  _initializePlayers();
-                                });
-                              } : null,
+                              onPressed: _playerCount < 8
+                                  ? () {
+                                      setState(() {
+                                        _playerCount++;
+                                        _initializePlayers();
+                                      });
+                                    }
+                                  : null,
                               icon: const Icon(Icons.add_circle),
                               iconSize: 30,
                             ),
@@ -171,7 +218,13 @@ class _StartScreenState extends State<StartScreen> {
                         const SizedBox(height: 20),
 
                         // 참여자 이름 입력
-                        const Text('참여자 이름 (선택사항)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const Text(
+                          '참여자 이름 (선택사항)',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const SizedBox(height: 10),
                         ...List.generate(_playerCount, (index) {
                           return Padding(
@@ -181,11 +234,16 @@ class _StartScreenState extends State<StartScreen> {
                                 labelText: '참여자 ${index + 1}',
                                 hintText: '이름을 입력하세요 (비워두면 ${index + 1})',
                                 border: const OutlineInputBorder(),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
                               ),
                               onChanged: (value) {
                                 setState(() {
-                                  _playerNames[index] = value.isEmpty ? '${index + 1}' : value;
+                                  _playerNames[index] = value.isEmpty
+                                      ? '${index + 1}'
+                                      : value;
                                 });
                               },
                             ),
@@ -202,11 +260,22 @@ class _StartScreenState extends State<StartScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 60,
+                        vertical: 20,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                       elevation: 5,
                     ),
-                    child: const Text('START', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'START',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -221,8 +290,12 @@ class _StartScreenState extends State<StartScreen> {
 class GameScreen extends StatefulWidget {
   final int playerCount;
   final List<String> playerNames;
-  
-  const GameScreen({super.key, required this.playerCount, required this.playerNames});
+
+  const GameScreen({
+    super.key,
+    required this.playerCount,
+    required this.playerNames,
+  });
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -232,26 +305,35 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   late int _playerCount;
   late List<String> _playerNames;
   List<bool> _buttonPressed = [];
-  final List<Color> _buttonColors = [Colors.red, Colors.blue, Colors.green, Colors.orange, Colors.purple, Colors.pink, Colors.teal, Colors.brown];
-  
+  final List<Color> _buttonColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+  ];
+
   bool _gameStarted = false;
   bool _gameFinished = false;
   String _countText = '';
   List<String> _winners = [];
-  
+
   // 버튼을 뗀 순서를 추적하기 위한 변수들
   final Map<int, int> _releaseOrder = {}; // 플레이어 인덱스 -> 뗀 순서
   int _releaseCounter = 0;
   bool _isCountingDown = false; // 카운트다운 상태 추적
-  
+
   // 타이머 관련 변수 제거됨
-  
+
   // 게임 영역 크기를 저장하는 변수
   double _gameAreaSize = 280;
-  
+
   late AnimationController _countAnimationController;
   late Animation<double> _scaleAnimation;
-  
+
   BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
 
@@ -266,8 +348,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   void _initializeCountAnimation() {
-    _countAnimationController = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.5).animate(CurvedAnimation(parent: _countAnimationController, curve: Curves.elasticOut));
+    _countAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.5).animate(
+      CurvedAnimation(
+        parent: _countAnimationController,
+        curve: Curves.elasticOut,
+      ),
+    );
   }
 
   // 진동 효과 함수
@@ -314,7 +404,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final random = Random();
     final totalTime = 3000;
     final delays = <int>[];
-    
+
     int remainingTime = totalTime;
     for (int i = 0; i < 2; i++) {
       int delay = random.nextInt(remainingTime ~/ (3 - i)) + 200;
@@ -326,11 +416,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     for (int i = 1; i <= 3; i++) {
       await Future.delayed(Duration(milliseconds: delays[i - 1]));
       if (!_gameStarted) return;
-      
+
       setState(() => _countText = i.toString());
       _countAnimationController.reset();
       _countAnimationController.forward();
-      
+
       if (i == 3) {
         await Future.delayed(const Duration(milliseconds: 300));
         // 3초 카운트 완료 후 눈치게임 시작 (자동 종료 없음)
@@ -348,13 +438,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _checkGameEnd() {
     // 누군가 버튼을 뗐을 때 즉시 게임 종료 여부 확인
     if (_gameFinished) return;
-    
+
     // 1. 3초 카운트 중에 떼면 즉시 게임 종료
     if (_isCountingDown) {
       _endGame();
       return;
     }
-    
+
     // 2. 동시에 뗀 사람들이 있는지 확인
     if (_releaseOrder.isNotEmpty) {
       Map<int, List<int>> simultaneousGroups = {};
@@ -364,7 +454,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         }
         simultaneousGroups[order]!.add(playerIndex);
       });
-      
+
       // 2명 이상 동시에 뗀 그룹이 있으면 게임 종료
       for (var group in simultaneousGroups.values) {
         if (group.length > 1) {
@@ -373,7 +463,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         }
       }
     }
-    
+
     // 3. 마지막 1인이 남았는지 확인
     int stillPressedCount = 0;
     for (int i = 0; i < _playerCount; i++) {
@@ -381,7 +471,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         stillPressedCount++;
       }
     }
-    
+
     // 마지막 1인이 남았으면 게임 종료
     if (stillPressedCount <= 1) {
       _endGame();
@@ -403,12 +493,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _releaseOrder.forEach((playerIndex, order) {
         earlyReleasers.add(_playerNames[playerIndex]);
       });
-      
+
       String result = '${earlyReleasers.join(', ')} 걸림! (카운트 중에 뗐음)';
       setState(() => _winners = [result]);
       return;
     }
-    
+
     // 2. 동시에 뗀 사람들 확인
     if (_releaseOrder.isNotEmpty) {
       // 같은 순서로 뗀 사람들을 그룹화
@@ -419,7 +509,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         }
         simultaneousGroups[order]!.add(playerIndex);
       });
-      
+
       // 2명 이상 동시에 뗀 그룹이 있는지 확인
       for (var group in simultaneousGroups.values) {
         if (group.length > 1) {
@@ -430,7 +520,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         }
       }
     }
-    
+
     // 3. 마지막까지 누르고 있는 사람이 걸림
     List<String> allStillPressed = [];
     for (int i = 0; i < _playerCount; i++) {
@@ -438,7 +528,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         allStillPressed.add(_playerNames[i]);
       }
     }
-    
+
     String result;
     if (allStillPressed.length == 1) {
       result = '${allStillPressed[0]} 걸림! (마지막까지 누르고 있었음)';
@@ -447,7 +537,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     } else {
       result = '게임 종료 - 승자 없음';
     }
-    
+
     setState(() => _winners = [result]);
   }
 
@@ -469,16 +559,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       builder: (context, constraints) {
         double screenWidth = MediaQuery.of(context).size.width;
         double screenHeight = MediaQuery.of(context).size.height;
-        
+
         // 화면 크기에 맞춰 게임 영역을 조정 (설명 영역 고려)
         double availableWidth = screenWidth * 0.9;
         double availableHeight = screenHeight * 0.5; // 높이를 줄여서 설명 영역과 겹치지 않도록
         double gameAreaSize = min(availableWidth, availableHeight);
         gameAreaSize = max(gameAreaSize, 280); // 최소 크기도 줄임
-        
+
         // 게임 영역 크기를 클래스 변수에 저장
         _gameAreaSize = gameAreaSize;
-        
+
         // 버튼 크기를 플레이어 수와 화면 크기에 맞춰 동적 조정
         double buttonSize;
         if (_playerCount <= 3) {
@@ -490,7 +580,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         }
         buttonSize = max(buttonSize, 70);
         buttonSize = min(buttonSize, 120);
-        
+
         // 원형 배치 반지름을 최대한 크게 조정 (버튼이 화면을 벗어나지 않는 선에서)
         double radius = (gameAreaSize / 2) - (buttonSize / 2) - 20; // 여백 20px
         radius = max(radius, gameAreaSize * 0.25); // 최소 반지름 보장
@@ -503,7 +593,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             break;
           }
         }
-            
+
         return Column(
           children: [
             // 게임 설명 영역 (항상 고정된 높이 유지)
@@ -512,37 +602,43 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: (!_gameStarted && !_gameFinished) ? BoxDecoration(
-                color: Colors.white.withOpacity(0.95),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.blue.shade200, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ) : null,
+              decoration: (!_gameStarted && !_gameFinished)
+                  ? BoxDecoration(
+                      color: Colors.white.withOpacity(0.95),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.blue.shade200, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    )
+                  : null,
               child: Center(
-                child: (!_gameStarted && !_gameFinished) ? Text(
-                  allPressed
-                      ? '🎮 모든 버튼이 눌렸습니다!\n게임이 곧 시작됩니다...'
-                      : '👥 모든 참여자가 버튼을 동시에 누르고\n계속 눌러주세요!\n🎯 모든 버튼이 눌리면 게임 시작\n⏰ 1-2-3 카운트 후 손을 떼세요!',
-                  style: TextStyle(
-                    fontSize: 12, 
-                    color: allPressed ? Colors.green.shade700 : Colors.blue.shade700,
-                    fontWeight: FontWeight.w600,
-                    height: 1.3,
-                  ),
-                  textAlign: TextAlign.center,
-                ) : const SizedBox(), // 게임 중/끝났을 때도 같은 높이 유지
+                child: (!_gameStarted && !_gameFinished)
+                    ? Text(
+                        allPressed
+                            ? '🎮 모든 버튼이 눌렸습니다!\n게임이 곧 시작됩니다...'
+                            : '👥 모든 참여자가 버튼을 동시에 누르고\n계속 눌러주세요!\n🎯 모든 버튼이 눌리면 게임 시작\n⏰ 1-2-3 카운트 후 손을 떼세요!',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: allPressed
+                              ? Colors.green.shade700
+                              : Colors.blue.shade700,
+                          fontWeight: FontWeight.w600,
+                          height: 1.3,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    : const SizedBox(), // 게임 중/끝났을 때도 같은 높이 유지
               ),
             ),
-            
+
             // 게임 영역과 설명 영역 사이 간격
             const SizedBox(height: 8),
-            
+
             // 게임 영역 (버튼들과 오버레이)
             SizedBox(
               width: gameAreaSize,
@@ -555,7 +651,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     double angle = (2 * pi * index) / _playerCount - pi / 2;
                     double x = radius * cos(angle);
                     double y = radius * sin(angle);
-                    
+
                     return Positioned(
                       left: gameAreaSize / 2 + x - buttonSize / 2,
                       top: gameAreaSize / 2 + y - buttonSize / 2,
@@ -564,7 +660,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           if (!_gameStarted && !_gameFinished) {
                             setState(() => _buttonPressed[index] = true);
                             _triggerButtonVibration(); // 버튼 누를 때 진동
-                            
+
                             // 모든 참여자의 버튼이 눌려있는지 확인
                             bool allPressed = true;
                             for (int i = 0; i < _playerCount; i++) {
@@ -586,11 +682,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           } else if (_gameStarted && !_gameFinished) {
                             // 게임 중에는 버튼을 떼는 것이 게임의 핵심
                             // 버튼을 뗀 순서를 기록
-                            if (_buttonPressed[index] && !_releaseOrder.containsKey(index)) {
+                            if (_buttonPressed[index] &&
+                                !_releaseOrder.containsKey(index)) {
                               _releaseOrder[index] = _releaseCounter++;
                               setState(() => _buttonPressed[index] = false);
                               _triggerButtonVibration(); // 게임 중 버튼 뺄 때 진동
-                              
+
                               // 카운트 중이거나 게임 중에 누군가 떼면 즉시 게임 종료 확인
                               _checkGameEnd();
                             }
@@ -598,22 +695,38 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
-                          width: _buttonPressed[index] ? buttonSize * 0.9 : buttonSize,
-                          height: _buttonPressed[index] ? buttonSize * 0.9 : buttonSize,
+                          width: _buttonPressed[index]
+                              ? buttonSize * 0.9
+                              : buttonSize,
+                          height: _buttonPressed[index]
+                              ? buttonSize * 0.9
+                              : buttonSize,
                           decoration: BoxDecoration(
-                            color: _buttonPressed[index] ? _buttonColors[index].withOpacity(0.9) : _buttonColors[index],
+                            color: _buttonPressed[index]
+                                ? _buttonColors[index].withOpacity(0.9)
+                                : _buttonColors[index],
                             shape: BoxShape.circle,
-                            border: _buttonPressed[index] ? Border.all(color: Colors.white, width: 3) : null,
-                            boxShadow: _buttonPressed[index] ? [
-                              BoxShadow(
-                                color: _buttonColors[index].withOpacity(0.6),
-                                blurRadius: 15,
-                                spreadRadius: 5,
-                                offset: const Offset(0, 0),
-                              ),
-                            ] : [
-                              BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4)),
-                            ],
+                            border: _buttonPressed[index]
+                                ? Border.all(color: Colors.white, width: 3)
+                                : null,
+                            boxShadow: _buttonPressed[index]
+                                ? [
+                                    BoxShadow(
+                                      color: _buttonColors[index].withOpacity(
+                                        0.6,
+                                      ),
+                                      blurRadius: 15,
+                                      spreadRadius: 5,
+                                      offset: const Offset(0, 0),
+                                    ),
+                                  ]
+                                : [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
                           ),
                           child: Center(
                             child: Text(
@@ -630,9 +743,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       ),
                     );
                   }),
-                  
+
                   // 30초 타이머 제거됨
-                  
+
                   // 카운트 표시 - 중앙에 오버레이
                   if (_gameStarted && _countText.isNotEmpty)
                     AnimatedBuilder(
@@ -668,7 +781,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                         );
                       },
                     ),
-                  
+
                   // 결과 표시 - 중앙에 오버레이
                   if (_gameFinished)
                     Container(
@@ -677,7 +790,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       decoration: BoxDecoration(
                         color: Colors.green.shade100.withOpacity(0.95),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.green.shade300, width: 3),
+                        border: Border.all(
+                          color: Colors.green.shade300,
+                          width: 3,
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.3),
@@ -721,19 +837,25 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   const SizedBox(height: 20),
                   _buildGameButtons(),
                   const SizedBox(height: 30),
-                  
+
                   // 컨트롤 버튼
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
                         onPressed: _resetGame,
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.orange, foregroundColor: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                        ),
                         child: const Text('재시작'),
                       ),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey, foregroundColor: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey,
+                          foregroundColor: Colors.white,
+                        ),
                         child: const Text('시작 화면'),
                       ),
                     ],
