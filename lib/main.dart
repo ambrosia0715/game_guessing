@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -368,8 +369,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _loadBannerAd() {
     if (!kIsWeb) {
       _bannerAd = BannerAd(
-        // 실제 AdMob 광고 단위 ID 사용
-        adUnitId: 'ca-app-pub-1444459980078427/6697669191',
+        // 플랫폼별 AdMob 광고 단위 ID 사용
+        adUnitId: kDebugMode 
+          ? (Platform.isAndroid 
+              ? 'ca-app-pub-3940256099942544/6300978111'  // Android 테스트 ID
+              : 'ca-app-pub-3940256099942544/2934735716') // iOS 테스트 ID
+          : (Platform.isAndroid 
+              ? 'ca-app-pub-1444459980078427/8933782931'  // Android 실제 광고 단위 ID
+              : 'ca-app-pub-1444459980078427/7768040920'), // iOS 실제 광고 단위 ID
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(

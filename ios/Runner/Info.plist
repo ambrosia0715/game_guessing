@@ -27,7 +27,7 @@
 	
 	<!-- AdMob App ID 설정 -->
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-1444459980078427~9076275827</string>
+	<string>ca-app-pub-1444459980078427~6213332394</string>
 	
 	<!-- iOS 14+ ATT (App Tracking Transparency) 설정 -->
 	<key>NSUserTrackingUsageDescription</key>
