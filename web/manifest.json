@@ -1,11 +1,11 @@
 {
-    "name": "game_guessing",
-    "short_name": "game_guessing",
+    "name": "눈치게임 - Game Guessing",
+    "short_name": "눈치게임",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F4F1E8",
+    "theme_color": "#FFD700",
+    "description": "재미있는 멀티플레이어 눈치게임으로 친구들과 함께 즐겨보세요!",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
