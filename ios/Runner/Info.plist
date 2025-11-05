@@ -54,5 +54,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- 개인정보 처리방침 URL -->
+	<key>PrivacyPolicyURL</key>
+	<string>https://ambro-home.vercel.app/#/privacy/nunchi-game</string>
 </dict>
 </plist>

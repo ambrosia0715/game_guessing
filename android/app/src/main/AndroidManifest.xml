@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ambro.nunchigame">
     <!-- 인터넷 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 진동 권한 추가 -->
@@ -41,6 +42,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
+        <!-- 개인정보 처리방침 URL -->
+        <meta-data
+            android:name="privacy_policy_url"
+            android:value="https://ambro-home.vercel.app/#/privacy/nunchi-game" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

@@ -1,5 +1,5 @@
 name: game_guessing
-description: "A new Flutter project."
+description: "재미있는 멀티플레이어 눈치게임. 친구들과 함께 타이밍을 맞춰보세요!"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
