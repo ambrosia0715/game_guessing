@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +69,9 @@ class _StartScreenState extends State<StartScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFFF4F1E8), // 베이지색
-              Color(0xFFEDE7D1), // 연한 베이지색
+              Colors.purple.shade300,
+              Colors.blue.shade400,
+              Colors.teal.shade300,
             ],
           ),
         ),
@@ -82,142 +82,65 @@ class _StartScreenState extends State<StartScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // 게임 로고
+                  // 게임 타이틀
                   Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: Image.asset(
-                      'assets/images/game_guessing_logo.png',
-                      width: 280,
-                      height: 200,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        // 이미지 로드 실패 시 대체 UI
-                        return Container(
-                          padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 120,
+                          height: 120,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF4F1E8),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.black, width: 4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                blurRadius: 8,
-                                offset: const Offset(3, 3),
-                              ),
-                            ],
+                            color: Colors.orange.shade100,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.orange.shade300,
+                              width: 3,
+                            ),
                           ),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF4F1E8),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.black, width: 3),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.touch_app,
+                                  size: 40,
+                                  color: Colors.orange.shade700,
                                 ),
-                                child: Stack(
-                                  children: [
-                                    // 왼쪽 얼굴 (밝은색)
-                                    Positioned(
-                                      left: 0,
-                                      child: Container(
-                                        width: 37,
-                                        height: 74,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFFFD1A3),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(37),
-                                            bottomLeft: Radius.circular(37),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: 8,
-                                                height: 8,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                              ),
-                                              SizedBox(height: 8),
-                                              Container(
-                                                width: 15,
-                                                height: 3,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black,
-                                                  borderRadius: BorderRadius.circular(2),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    // 오른쪽 얼굴 (어두운색)
-                                    Positioned(
-                                      right: 0,
-                                      child: Container(
-                                        width: 37,
-                                        height: 74,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF8B4513),
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(37),
-                                            bottomRight: Radius.circular(37),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Container(
-                                            width: 15,
-                                            height: 8,
-                                            decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              borderRadius: BorderRadius.circular(4),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(height: 4),
+                                Text(
+                                  '1 2 3',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade700,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 15),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFFD700),
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.black, width: 3),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '눈치게임',
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      'GAME',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        );
-                      },
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          '눈치게임',
+                          style: TextStyle(
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -226,14 +149,13 @@ class _StartScreenState extends State<StartScreen> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.95),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xFFFFD700), width: 3),
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 5,
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -246,9 +168,8 @@ class _StartScreenState extends State<StartScreen> {
                             const Text(
                               '참여자 수: ',
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.black87,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             IconButton(
@@ -269,16 +190,14 @@ class _StartScreenState extends State<StartScreen> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                color: Color(0xFFFFD700),
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.black, width: 2),
+                                color: Colors.blue.shade100,
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
                                 '$_playerCount명',
                                 style: const TextStyle(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -339,24 +258,22 @@ class _StartScreenState extends State<StartScreen> {
                   ElevatedButton(
                     onPressed: _startGame,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFFD700),
-                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.orange,
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 60,
                         vertical: 20,
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: BorderSide(color: Colors.black, width: 3),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      elevation: 8,
+                      elevation: 5,
                     ),
                     child: const Text(
                       'START',
                       style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 2,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -389,14 +306,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   late List<String> _playerNames;
   List<bool> _buttonPressed = [];
   final List<Color> _buttonColors = [
-    Color(0xFFFF6B6B), // 밝은 빨강
-    Color(0xFF4ECDC4), // 민트
-    Color(0xFF45B7D1), // 하늘
-    Color(0xFFFFD700), // 황금 (로고 색상)
-    Color(0xFF96CEB4), // 연두
-    Color(0xFFFECEA8), // 복숭아
-    Color(0xFFFF9FF3), // 핑크
-    Color(0xFFBE90D4), // 라벤더
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
   ];
 
   bool _gameStarted = false;
@@ -411,7 +328,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   // 타이머 관련 변수 제거됨
 
-
+  // 게임 영역 크기를 저장하는 변수
+  double _gameAreaSize = 280;
 
   late AnimationController _countAnimationController;
   late Animation<double> _scaleAnimation;
@@ -450,14 +368,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _loadBannerAd() {
     if (!kIsWeb) {
       _bannerAd = BannerAd(
-        // 플랫폼별 AdMob 광고 단위 ID 사용
-        adUnitId: kDebugMode 
-          ? (Platform.isAndroid 
-              ? 'ca-app-pub-3940256099942544/6300978111'  // Android 테스트 ID
-              : 'ca-app-pub-3940256099942544/2934735716') // iOS 테스트 ID
-          : (Platform.isAndroid 
-              ? 'ca-app-pub-1444459980078427/8933782931'  // Android 실제 광고 단위 ID
-              : 'ca-app-pub-1444459980078427/7768040920'), // iOS 실제 광고 단위 ID
+        // 실제 AdMob 광고 단위 ID 사용
+        adUnitId: 'ca-app-pub-1444459980078427/6697669191',
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(
@@ -654,7 +566,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         double gameAreaSize = min(availableWidth, availableHeight);
         gameAreaSize = max(gameAreaSize, 280); // 최소 크기도 줄임
 
-
+        // 게임 영역 크기를 클래스 변수에 저장
+        _gameAreaSize = gameAreaSize;
 
         // 버튼 크기를 플레이어 수와 화면 크기에 맞춰 동적 조정
         double buttonSize;
@@ -912,29 +825,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '눈치게임',
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Color(0xFFFFD700),
-        elevation: 4,
-        shadowColor: Colors.black.withOpacity(0.3),
+        title: const Text('눈치게임'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFF4F1E8), // 베이지색
-              Color(0xFFEDE7D1), // 연한 베이지색
-            ],
-          ),
-        ),
-        child: Column(
+      body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -951,36 +845,18 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       ElevatedButton(
                         onPressed: _resetGame,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFFFD700),
-                          foregroundColor: Colors.black,
-                          side: BorderSide(color: Colors.black, width: 2),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
                         ),
-                        child: const Text(
-                          '재시작',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
+                        child: const Text('재시작'),
                       ),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFF4F1E8),
-                          foregroundColor: Colors.black,
-                          side: BorderSide(color: Color(0xFFFFD700), width: 2),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                          backgroundColor: Colors.grey,
+                          foregroundColor: Colors.white,
                         ),
-                        child: const Text(
-                          '시작 화면',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
+                        child: const Text('시작 화면'),
                       ),
                     ],
                   ),
@@ -996,7 +872,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               child: AdWidget(ad: _bannerAd!),
             ),
         ],
-        ),
       ),
     );
   }

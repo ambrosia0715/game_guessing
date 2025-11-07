@@ -1,4 +1,0 @@
-storePassword=<여기에 keystore 비밀번호 입력>
-keyPassword=<여기에 key 비밀번호 입력>
-keyAlias=upload
-storeFile=<사용자홈>/upload-keystore.jks
