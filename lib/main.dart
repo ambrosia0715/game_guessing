@@ -457,8 +457,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               ? 'ca-app-pub-3940256099942544/6300978111'  // Android 테스트 ID
               : 'ca-app-pub-3940256099942544/2934735716') // iOS 테스트 ID
           : (Platform.isAndroid 
-              ? 'ca-app-pub-1444459980078427/8933782931'  // Android 실제 광고 단위 ID
-              : 'ca-app-pub-1444459980078427/7768040920'), // iOS 실제 광고 단위 ID
+              ? 'ca-app-pub-1444459980078427/1777972677'  // Android 실제 광고 단위 ID
+              : 'ca-app-pub-1444459980078427/1450669612'), // iOS 실제 광고 단위 ID
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(

@@ -5,14 +5,14 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     
     <application
-        android:label="game_guessing"
+        android:label="눈치게임"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         
         <!-- AdMob App ID 설정 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1444459980078427~9076275827"/>
+            android:value="ca-app-pub-1444459980078427~3497896494"/>
             
         <activity
             android:name=".MainActivity"
@@ -22,7 +22,9 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="true"
+            android:maxAspectRatio="2.4">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
